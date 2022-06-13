@@ -1,8 +1,10 @@
 <?php
 
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -23,13 +25,19 @@ Route::get('/', function () {
 
 
 Route::get('/users', function (){
-//    return User::paginate(10);
-
-   return Inertia::render('Users', [
-       "users"=>  User::paginate(10)->through(fn($user)=>[
+   return Inertia::render('User/Users', [
+       "users" =>  User::query()
+                ->when((new Illuminate\Http\Request)->input('search'), function ($query, $search){
+                    $query->where('name', 'like', "%{$search}%");
+                })
+                ->paginate(10)
+               ->withQueryString()
+               ->through(fn($user)=>[
            'id' => $user->id,
            'name' => $user->name,
        ]),
+
+       "filters" => (new Illuminate\Http\Request)->only("search"),
    ]);
 });
 
@@ -38,6 +46,6 @@ Route::get('/settings', function (){
 });
 
 
-Route::post('/logout', function (\Illuminate\Http\Request $data){
+Route::post('/logout', function (Request $data){
     dd('call logout method'. $data->input('foo'));
 });

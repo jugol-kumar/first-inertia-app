@@ -6,7 +6,7 @@
         </h1>
 
 
-        <input type="text" placeholder="Search anything..." class="border px-2">
+        <input type="text" v-model="search" placeholder="Search anything..." class="border px-2">
 
     </div>
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-10">
@@ -51,9 +51,22 @@
 
 </template>
 <script setup>
-import Pagination from "../Shared/Pagination";
+import Pagination from "../../Shared/Pagination";
+import {ref, watch} from "vue";
+// import {watch} from "@vue/runtime-core";
+import {Inertia} from "@inertiajs/inertia";
+// import
     defineProps({
         users:Object,
-    })
+        filters:Object,
+    });
+
+    let search = ref("");
+    watch(search, value => {
+       Inertia.get('/users', {search:value}, {
+           preserveState: true
+       });
+    });
+
 </script>
 
