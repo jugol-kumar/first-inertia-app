@@ -4,6 +4,7 @@
         <h1 class="text-4xl">
             All User
         </h1>
+        <Link href="/users/create" class="px-5 py-2 rounded-full text-blue-500 bg-slate-300">Create User</Link>
 
 
         <input type="text" v-model="search" placeholder="Search anything..." class="border px-2">
