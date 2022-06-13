@@ -1,11 +1,14 @@
 <template>
     <Head title="Users"/>
-    <h1 class="text-4xl">
-        All User
-    </h1>
+    <div class="flex justify-between mb-6">
+        <h1 class="text-4xl">
+            All User
+        </h1>
 
 
+        <input type="text" placeholder="Search anything..." class="border px-2">
 
+    </div>
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-10">
         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
